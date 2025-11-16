@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const sequelize = require("./config/database");
+const { carregarDados } = require('./utils/dataStore');
+// Torna global
+global.carregarDados = carregarDados;
 
 // Configurações EJS, middlewares
 app.set('view engine', 'ejs');
@@ -16,11 +20,10 @@ const disciplinasRouter = require('./routes/disciplinas');
 const dashboardRouter = require('./routes/dashboard');
 const projetosRouter = require('./routes/projetos');
 const contatoRouter = require('./routes/contato');
+const filesRouter = require('./routes/files');
 
-// Importa estado global
-const { disciplinasData, state, projetosData } = require('./utils/dataStore');
 
-async function getGithubStats(username) {
+async function getGithubStats(username, state) {
     if (username === "novoUsuario") {
         console.warn("ALERTA: O nome de usuário do GitHub ainda é o placeholder. Dados mockados serão usados.");
         return {
@@ -120,10 +123,14 @@ async function getGithubStats(username) {
 }
 
 app.get('/dashboard', async (req, res) => {
+    const { disciplinasData, projetosData, state } = await carregarDados();
     const totalDisciplinas = disciplinasData.length;
     const projetosConcluidos = projetosData.length;
+    console.log("total de disciplinas: ",totalDisciplinas)
+    console.log("total de projetos: ",projetosConcluidos)
+    console.log("state: ",state)
     try {
-        const githubStats = await getGithubStats(state.GITHUB_USERNAME);
+        const githubStats = await getGithubStats(state.githubUsername, state);
 
         res.render('dashboard', {
             title: 'Dashboard do Portfólio',
@@ -144,7 +151,16 @@ app.use('/', disciplinasRouter);
 app.use('/', dashboardRouter);
 app.use('/', projetosRouter);
 app.use('/', contatoRouter);
+app.use('/files', filesRouter);
 
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-});
+// Inicia servidor somente após conectar ao banco
+sequelize.sync()
+    .then(() => {
+        console.log("Banco sincronizado com sucesso!");
+        app.listen(port, () => {
+            console.log(`Servidor rodando em http://localhost:${port}`);
+        });
+    })
+    .catch(err => {
+        console.error("Erro ao sincronizar o banco:", err);
+    });
