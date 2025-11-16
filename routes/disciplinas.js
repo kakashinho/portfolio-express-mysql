@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { disciplinasData } = require('../utils/dataStore');
+const Disciplina = require('../models/disciplinas');
 
 function padronizarStatus(disciplinas) {
     return disciplinas.map(d => {
@@ -16,74 +16,134 @@ function padronizarStatus(disciplinas) {
     });
 }
 
-router.get('/api/disciplinas', (req, res) => {
-    res.json(disciplinasData);
+router.get('/api/disciplinas', async (req, res) => {
+    try {
+        const disciplinas = await Disciplina.findAll();
+        res.json(disciplinas);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
-router.post('/api/disciplinas', (req, res) => {
-    const disciplinas = req.body;
+router.post('/api/disciplinas', async (req, res) => {
+    try {
+        const disciplinas = req.body;
 
-    if (!Array.isArray(disciplinas)) {
-        return res.status(400).json({ error: "O corpo da requisição deve ser um array de disciplinas." });
-    }
-
-    for (let i = 0; i < disciplinas.length; i++) {
-        const { nome, media, frequencia, semestre, ano, status } = disciplinas[i];
-        if (!nome || media == null || frequencia == null || !semestre || !ano || !status) {
-            return res.status(400).json({ 
-                error: `Disciplina na posição ${i} está incompleta.` 
-            });
+        if (!Array.isArray(disciplinas)) {
+            return res.status(400).json({ error: "O corpo deve ser um ARRAY de disciplinas." });
         }
+
+        // Validação
+        for (let i = 0; i < disciplinas.length; i++) {
+            const d = disciplinas[i];
+            if (!d.nome || d.media == null || d.frequencia == null || !d.semestre || !d.ano || !d.status) {
+                return res.status(400).json({
+                    error: `Disciplina na posição ${i} está incompleta.`
+                });
+            }
+        }
+
+        const disciplinaPadronizadas = padronizarStatus(disciplinas);
+
+        const nomesExistentes = (await Disciplina.findAll({ attributes: ['nome'] }))
+            .map(d => d.nome.toLowerCase());
+
+        const novasDisciplinas = disciplinaPadronizadas.filter(d => !nomesExistentes.includes(d.nome.toLowerCase()));
+
+        if (novasDisciplinas.length === 0) {
+            return res.status(400).json({ error: "A disciplina já existe no banco." });
+        }
+
+        const criadas = await Disciplina.bulkCreate(disciplinaPadronizadas);
+
+        res.status(201).json({
+            message: "Disciplinas adicionadas com sucesso!",
+            adicionadas: criadas.length
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    disciplinasData.length = 0;
-
-    disciplinasData.push(...padronizarStatus(disciplinas));
-
-    res.status(201).json({ message: "Disciplinas adicionadas com sucesso.", total: disciplinasData.length });
 });
 
-router.put('/api/disciplinas/:nome', (req, res) => {
-    const nomeParam = decodeURIComponent(req.params.nome).toLowerCase();
-    const body = Array.isArray(req.body) ? req.body[0] : req.body;
+router.put('/api/disciplinas/:nome', async (req, res) => {
+    try {
+        const nomeParam = decodeURIComponent(req.params.nome).toLowerCase();
 
-    if (!body || typeof body !== 'object') {
-        return res.status(400).json({ error: "Corpo da requisição inválido." });
+        const disciplina = await Disciplina.findOne({
+            where: { nome: nomeParam }
+        });
+
+        if (!disciplina) {
+            return res.status(404).json({ error: "Disciplina não encontrada." });
+        }
+
+        const updates = {};
+        const body = req.body;
+
+        if (body.nome !== undefined && body.nome !== "") updates.nome = body.nome;
+        if (body.media !== undefined && body.media !== "") updates.media = body.media;
+        if (body.frequencia !== undefined && body.frequencia !== "") updates.frequencia = body.frequencia;
+        if (body.semestre !== undefined && body.semestre !== "") updates.semestre = body.semestre;
+        if (body.ano !== undefined && body.ano !== "") updates.ano = body.ano;
+        if (body.status !== undefined && body.status !== "") updates.status = body.status;
+
+        await disciplina.update(updates);
+
+        res.json({ message: "Disciplina atualizada com sucesso!", disciplina });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    const index = disciplinasData.findIndex(d => d.nome.toLowerCase() === nomeParam);
-
-    if (index === -1) {
-        return res.status(404).json({ error: "Disciplina não encontrada." });
-    }
-
-    disciplinasData[index] = { ...disciplinasData[index], ...body };
-
-    res.json({ message: "Disciplina atualizada com sucesso.", disciplina: disciplinasData[index] });
 });
 
-router.delete('/api/disciplinas/:nome', (req, res) => {
-    const nome = decodeURIComponent(req.params.nome);
-    const index = disciplinasData.findIndex(d => d.nome === nome);
+router.delete('/api/disciplinas/:nome', async (req, res) => {
+    try {
+        const nomeParam = decodeURIComponent(req.params.nome).toLowerCase();
 
-    if (index === -1) {
-        return res.status(404).json({ error: "Disciplina não encontrada." });
+        const disciplina = await Disciplina.findOne({
+            where: { nome: nomeParam }
+        });
+
+        if (!disciplina) {
+            return res.status(404).json({ error: "Disciplina não encontrada." });
+        }
+
+        await disciplina.destroy();
+
+        res.json({ message: "Disciplina removida com sucesso!", removida: disciplina });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    const removida = disciplinasData.splice(index, 1);
-    res.json({ message: "Disciplina removida com sucesso.", removida });
 });
 
-router.delete('/api/disciplinas', (req, res) => {
-    disciplinasData.length = 0;
-    res.json({ message: "Todas as disciplinas foram removidas." });
+router.delete('/api/disciplinas', async (req, res) => {
+    try {
+        await Disciplina.destroy({ where: {} });
+        res.json({ message: "Todas as disciplinas foram removidas." });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
-router.get('/disciplinas', (req, res) => {
-    res.render('disciplinas', {
-        title: 'Minhas Disciplinas',
-        disciplinas: disciplinasData
-    });
+router.get('/disciplinas', async (req, res) => {
+    try {
+        const disciplinas = await Disciplina.findAll();
+        const prioridadeStatus = { 'Concluída': 1, 'Em Curso': 2, 'Não Cursada': 3 };
+
+        // Ordena pelo status
+        disciplinas.sort((a, b) => {
+            return (prioridadeStatus[a.status] || 99) - (prioridadeStatus[b.status] || 99);
+        });
+
+        res.render('disciplinas', {
+            title: 'Minhas Disciplinas',
+            disciplinas
+        });
+    } catch (error) {
+        res.status(500).send("Erro ao carregar página de disciplinas.");
+    }
 });
 
 module.exports = router;

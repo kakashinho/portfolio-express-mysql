@@ -1,57 +1,89 @@
 const express = require('express');
 const router = express.Router();
 
-let inicioData = {};
+const Inicio = require("../models/inicio");
 
-router.post('/api/inicio', (req, res) => {
-    const { nome, introducao, fotoPerfil, icones, contato } = req.body;
+router.post('/api/inicio', async (req, res) => {
+    try {
+        const { nome, introducao, fotoPerfil, icones, contato } = req.body;
 
-    if (!nome || !introducao || !fotoPerfil || !icones || !contato) {
-        return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+        if (!nome || !introducao || !fotoPerfil || !icones || !contato) {
+            return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+        }
+        //Apaga o anterior
+        await Inicio.destroy({ where: {} });
+
+        const inicio = await Inicio.create({ nome, introducao, fotoPerfil, icones, contato });
+        res.status(201).json({ message: "Dados salvos com sucesso!", inicio });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    inicioData = { nome, introducao, fotoPerfil, icones, contato };
-    res.status(201).json({ message: "Dados da página inicial atualizados com sucesso." });
 });
 
-router.get('/api/inicio', (req, res) => {
-    if (Object.keys(inicioData).length === 0) {
-        return res.status(404).json({ message: "Nenhum dado encontrado." });
+router.get('/api/inicio', async (req, res) => {
+    try {
+        const inicio = await Inicio.findOne();
+        if (!inicio) {
+            return res.status(404).json({ message: "Nenhum dado encontrado." });
+        }
+        res.json(inicio);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-    res.json(inicioData);
 });
 
-router.put('/api/inicio', (req, res) => {
-    const { nome, introducao, fotoPerfil, icones, contato } = req.body;
+router.put('/api/inicio', async (req, res) => {
+    try {
+        const inicio = await Inicio.findOne();
 
-    if (Object.keys(inicioData).length === 0) {
-        return res.status(404).json({ error: "Nenhum dado para atualizar." });
+        if (!inicio) {
+            return res.status(404).json({ error: "Nenhum dado para atualizar." });
+        }
+        const { nome, introducao, fotoPerfil, icones, contato } = req.body;
+
+        const updates = {};
+
+        if (nome !== undefined && nome !== "") updates.nome = nome;
+        if (introducao !== undefined && introducao !== "") updates.introducao = introducao;
+        if (fotoPerfil !== undefined && fotoPerfil !== "") updates.fotoPerfil = fotoPerfil;
+        if (icones !== undefined && icones !== "") updates.icones = icones;
+        if (contato !== undefined && contato !== "") updates.contato = contato;
+        if (Object.keys(updates).length === 0) {
+            return res.status(400).json({ error: "Nenhum dado válido enviado para atualização." });
+        }
+
+        await inicio.update(updates);
+        res.json({ message: "Atualizado com sucesso!", inicio });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-    inicioData = {
-        nome: nome || inicioData.nome,
-        introducao: introducao || inicioData.introducao,
-        fotoPerfil: fotoPerfil || inicioData.fotoPerfil,
-        icones: icones || inicioData.icones,
-        contato: contato || inicioData.contato
-    };
-
-    res.json({ message: "Dados da página inicial atualizados com sucesso.", inicioData });
 });
 
-router.delete('/api/inicio', (req, res) => {
-    if (Object.keys(inicioData).length === 0) {
-        return res.status(404).json({ error: "Nenhum dado para deletar." });
-    }
+router.delete('/api/inicio', async (req, res) => {
+    try {
+        const inicio = await Inicio.findOne();
+        if (!inicio) {
+            return res.status(404).json({ error: "Nenhum dado para deletar." });
+        }
 
-    inicioData = {};
-    res.json({ message: "Dados da página inicial deletados com sucesso." });
+        await inicio.destroy();
+
+        res.json({ message: "Dado apagado com sucesso." });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 // Rota da página inicial
-router.get('/', (req, res) => {
-    if (!inicioData) inicioData = {};
-    res.render('index', { inicioData });
+router.get('/', async (req, res) => {
+    try {
+        const inicioData = await Inicio.findOne();
+        res.render('index', { inicioData: inicioData || {} });
+
+    } catch (error) {
+        res.status(500).send("Erro ao renderizar página inicial.");
+    }
 });
 
 module.exports = router;
