@@ -1,6 +1,6 @@
 const Disciplina = require('../models/disciplinas');
 const Projeto = require('../models/projetos');
-const Dashboard = require('../models/Dashboard');
+const Dashboard = require('../models/dashboard');
 
 let disciplinasData = [];
 let projetosData = [];
