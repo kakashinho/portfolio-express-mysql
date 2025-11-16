@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Dashboard = require('../models/Dashboard');
+const Dashboard = require('../models/dashboard');
 
 
 router.get('/api/dashboard', async (req, res) => {

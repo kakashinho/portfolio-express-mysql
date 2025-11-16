@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Sobre = require('../models/Sobre');
+const Sobre = require('../models/sobre');
 
 router.post('/api/sobre', async (req, res) => {
   try {
