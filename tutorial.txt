@@ -1,3 +1,7 @@
 npm init -y
 npm install express ejs
 npm install node-fetch
+npm install express sequelize sqlite3
+npm install dotenv
+npm install mysql2
+npm install multer
