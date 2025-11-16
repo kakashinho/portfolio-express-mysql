@@ -1,29 +1,32 @@
-const disciplinasData = [];
+const Disciplina = require('../models/disciplinas');
+const Projeto = require('../models/projetos');
+const Dashboard = require('../models/Dashboard');
 
-const state = {
-    GITHUB_USERNAME: "kakashinho",
-    LANGUAGE_COLORS: {
-        'JavaScript': '#f1e05a',
-        'Python': '#3572A5',
-        'Java': '#b07219',
-        'TypeScript': '#2b7489',
-        'HTML': '#e34c26',
-        'CSS': '#563d7c',
-        'C': '#555555',
-        'C++': '#f34b7d',
-        'C#': '#178600',
-        'PHP': '#4F5D95',
-        'Ruby': '#701516',
-        'Swift': '#ffaa45',
-        'Go': '#00ADD8',
-        'default': '#ededed'
+let disciplinasData = [];
+let projetosData = [];
+let state = {}
+
+async function carregarDados() {
+    try {
+        disciplinasData = await Disciplina.findAll();
+        projetosData = await Projeto.findAll();
+        let dashboard = await Dashboard.findOne();
+        if (!dashboard) {
+            dashboard = await Dashboard.create({
+                githubUsername: undefined, // usa default
+                languageColors: undefined // usa default
+            });
+        }
+        state = dashboard.toJSON();
+        state.LANGUAGE_COLORS = state.languageColors; // garantia consistência
+
+        return { disciplinasData, projetosData, state };
+    } catch (error) {
+        console.error("Erro ao carregar dados:", error.message);
+        return { disciplinasData: [], projetosData: [], state: {} };
     }
-};
+}
 
-const projetosData = [];
+carregarDados();
 
-module.exports = {
-    disciplinasData,
-    projetosData,
-    state
-};
+module.exports = { carregarDados };
