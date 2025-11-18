@@ -1,26 +1,30 @@
-# 📚 Portfólio Acadêmico - Atividade Avaliativa Individual 03
+# 📚 Portfólio Acadêmico – Atividade Avaliativa Individual 03
 
-Este projeto é uma atividade avaliativa individual da disciplina de [Nome da Disciplina], com o objetivo de praticar conceitos fundamentais do desenvolvimento web utilizando **Node.js**, **Express.js** e o motor de templates **EJS**.
+Este projeto faz parte da atividade avaliativa individual da disciplina **[Nome da Disciplina]**, com o objetivo de praticar desenvolvimento web utilizando **Node.js**, **Express**, **Sequelize**, **MySQL** e o motor de templates **EJS**.
 
 ---
 
 ## 🎯 Objetivos da Atividade
 
-O projeto consiste na criação de um **Portfólio Acadêmico** que simula um site pessoal com várias seções, utilizando rotas dinâmicas e renderização de conteúdo com EJS. Os principais objetivos da atividade são:
+O projeto consiste na criação de um **Portfólio Acadêmico**, contendo várias páginas dinâmicas renderizadas com EJS, rotas organizadas e integração com banco de dados usando Sequelize.  
+Os principais objetivos são:
 
-- Praticar a **criação e organização de rotas** no Express.
-- Utilizar o **EJS** para renderizar páginas HTML dinâmicas.
-- Exibir **variáveis simples**, **arrays** e **objetos** em páginas HTML.
-- Estruturar um site de portfólio com múltiplas seções.
-- Implementar as operações básicas de um **CRUD** (GET, POST, PUT, DELETE).
+- Criar e organizar **rotas** no Express  
+- Utilizar **EJS** para renderização dinâmica  
+- Exibir variáveis, arrays e objetos em páginas HTML  
+- Implementar operações **CRUD (GET, POST, PUT, DELETE)**  
+- Integrar o projeto com **MySQL** utilizando Sequelize  
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- Node.js
-- Express.js
-- EJS (Embedded JavaScript Templates)
+- Node.js  
+- Express.js  
+- EJS (Embedded JavaScript Templates)  
+- Sequelize  
+- MySQL  
+- Dotenv  
 
 ---
 
@@ -28,48 +32,82 @@ O projeto consiste na criação de um **Portfólio Acadêmico** que simula um si
 
 O projeto possui as seguintes rotas principais:
 
-- `/` – **Página Inicial**  
-  Exibe uma mensagem de boas-vindas e o nome do estudante.
+### `/` – Página Inicial  
+Exibe uma mensagem de boas-vindas e o nome do estudante.
 
-- `/sobre` – **Sobre Mim**  
-  Mostra informações pessoais como nome completo, curso, instituição e ano de ingresso. Os dados são passados como objeto para o EJS.
+### `/sobre` – Sobre Mim  
+Informações pessoais: nome completo, curso, instituição e ano de ingresso.
 
-- `/disciplinas` – **Minhas Disciplinas**  
-  Lista de disciplinas cursadas ou em andamento, enviadas ao EJS como um array.
+### `/disciplinas` – Minhas Disciplinas  
+Lista de disciplinas já cursadas ou em andamento.
 
-- `/projetos` – **Meus Projetos**  
-  Mostra os projetos acadêmicos com título, descrição e link. Os dados são enviados como uma lista de objetos.
+### `/projetos` – Meus Projetos  
+Exibe os projetos acadêmicos com título, descrição e link.
 
-- `/contato` – **Contato**  
-  Página com informações de contato como e-mail e/ou telefone.
+### `/contato` – Contato  
+Mostra e-mail e/ou telefone.
 
-- `/dashboard` – **Dashboard**  
-  Exibe estatísticas do portfólio, como:
-  - Total de disciplinas
-  - Número de projetos concluídos
-  - Tecnologias mais utilizadas
+### `/dashboard` – Dashboard  
+Exibe estatísticas como:
+- Total de disciplinas  
+- Número de projetos concluídos  
+- Tecnologias mais utilizadas  
 
 ---
 
 ## 🔄 Funcionalidades CRUD
 
-Além da renderização de páginas, o projeto implementa operações CRUD usando os métodos:
+O projeto implementa operações básicas de CRUD:
 
-- **GET** – para buscar e exibir dados nas páginas.
-- **POST** – para adicionar novos dados (ex.: adicionar um novo projeto).
-- **PUT** – para atualizar informações existentes.
-- **DELETE** – para remover dados.
+- **GET** – listar/exibir  
+- **POST** – criar  
+- **PUT** – atualizar  
+- **DELETE** – remover  
+
+Essas rotas podem ser testadas diretamente usando os arquivos `.http` incluídos na pasta **/testes**.
 
 ---
 
-## 🚀 Como Executar o Projeto
+## 🧪 Testando as Rotas (REST Client)
 
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/kakashinho/portfolio-express
+Este projeto contém uma pasta chamada **/testes** com arquivos `.http` correspondentes às principais rotas:
 
-   cd portfolio-express
+- `dashboard.http`  
+- `disciplinas.http`  
+- `files.http`  
+- `inicio.http`  
+- `projetos.http`  
+- `sobre.http`
 
-   npm install
+Para utilizá-los diretamente no VS Code, **é necessário instalar a extensão:**
 
-   npm start
+### 👉 **REST Client (by Huachao Mao)**  
+Com ela, você pode clicar em “Send Request” dentro dos arquivos `.http` para testar qualquer rota sem precisar de Postman ou Insomnia.
+
+---
+
+## ⚙️ Configuração do Ambiente
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/kakashinho/portfolio-express
+cd portfolio-express
+```
+
+### 2. Crie o arquivo `.env`
+DB_NAME=portfolio
+DB_USER=root
+DB_PASS=sua_senha
+DB_HOST=localhost
+DB_PORT=3306
+DB_DIALECT=mysql
+
+### 3. Instale as dependências e execute o projeto
+```bash
+npm install
+npm start
+```
+
+O servidor iniciará normalmente na porta 3000:
+http://localhost:3000
