@@ -1,4 +1,4 @@
-# 📚 Portfólio Acadêmico – Atividade Avaliativa Individual 03
+# 📚 Portfólio Acadêmico – Atividade Avaliativa Individual 04
 
 Este projeto faz parte da atividade avaliativa individual da disciplina **[Nome da Disciplina]**, com o objetivo de praticar desenvolvimento web utilizando **Node.js**, **Express**, **Sequelize**, **MySQL** e o motor de templates **EJS**.
 
