@@ -96,12 +96,14 @@ cd portfolio-express
 ```
 
 ### 2. Crie o arquivo `.env`
+```bash
 DB_NAME=portfolio
 DB_USER=root
 DB_PASS=sua_senha
 DB_HOST=localhost
 DB_PORT=3306
 DB_DIALECT=mysql
+```
 
 ### 3. Instale as dependências e execute o projeto
 ```bash
