@@ -1,0 +1,29 @@
+### Criar/Enviar dados da seção "Sobre" - POST
+POST http://localhost:3000/api/sobre
+Content-Type: application/json
+
+{
+  "fotoDescontraida": "Foto de Perfil.jpg",
+  "informacoesAluno": [
+    "João Vitor Silva Correia Siqueira",
+    "Desenvolvimento de Software Multiplataforma",
+    "Fatec São José dos Campos - Prof. Jessen Vidal",
+    "2025",
+    "Técnico em eletrônica por 1 ano e 9 meses na RS-GRID TECNOLOGIA ENGENHARIA E SERVICOS LTDA"
+  ],
+  "textoSobre": "Sou feliz em compartilhar que meu esporte favorito é tênis de mesa, gosto muito de animação, sempre estou acompanhando novos animes, talvez um dia eu desenvolva projetos de animações, além disso, gosto de eletrônica já desenvolvi projetos próprios de placas eletrônicas.\n\nMeu sonho é desenvolver por meio da tecnologia acessibilidade para pessoas deficiêntes, também desenvolvimento de projetos que tenham impacto positivo na sociedade. O meu escopo de atuação no mercado visa o desenvolvimento de soluções em automação, aprendizado contínuo e no aprimoramento minhas competências técnicas."
+}
+
+### Consultar dados da seção "Sobre" - GET
+GET http://localhost:3000/api/sobre
+
+### Atualizar dados da seção "Sobre" - PUT
+PUT http://localhost:3000/api/sobre
+Content-Type: application/json
+
+{
+  "textoSobre": "Texto atualizado da seção Sobre para testes."
+}
+
+### Deletar dados da seção "Sobre" - DELETE
+DELETE http://localhost:3000/api/sobre

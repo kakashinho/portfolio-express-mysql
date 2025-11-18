@@ -1,0 +1,91 @@
+DELETE  http://localhost:3000/api/disciplinas/Banco%20de%20Dados%20-%20Relacional
+Content-Type: application/json
+
+{}
+
+### Adiciona uma única disciplina
+POST http://localhost:3000/api/disciplinas
+Content-Type: application/json
+
+[
+    { "nome": "Algoritmos e Lógica de Programação", "media": 10.0, "frequencia": 95.0, "semestre": 1, "ano": 2025, "status": "Concluída" },
+    { "nome": "Modelagem de Banco de Dados", "media": 8.7, "frequencia": 90.0, "semestre": 1, "ano": 2025, "status": "Concluída" },
+    { "nome": "Engenharia de Software I", "media": 9.4, "frequencia": 97.5, "semestre": 1, "ano": 2025, "status": "Concluída" },
+    { "nome": "Sistemas Operacionais e Redes de Computadores", "media": 9.7, "frequencia": 92.5, "semestre": 1, "ano": 2025, "status": "Concluída" },
+    { "nome": "Desenvolvimento Web I", "media": 9.5, "frequencia": 92.5, "semestre": 1, "ano": 2025, "status": "Concluída" },
+    { "nome": "Design Digital", "media": 10.0, "frequencia": 88.8, "semestre": 1, "ano": 2025, "status": "Concluída" },
+    
+    { "nome": "Banco de Dados - Relacional", "media": 0.0, "frequencia": 0.0, "semestre": 2, "ano": 2025, "status": "Em Curso" },
+    { "nome": "Estrutura de Dados", "media": 0.0, "frequencia": 0.0, "semestre": 2, "ano": 2025, "status": "Em Curso" },
+    { "nome": "Engenharia de Software II", "media": 0.0, "frequencia": 0.0, "semestre": 2, "ano": 2025, "status": "Em Curso" },
+    { "nome": "Técnicas de Programação", "media": 0.8, "frequencia": 0.0, "semestre": 2, "ano": 2025, "status": "Em Curso" },
+    { "nome": "Desenvolvimento Web II", "media": 0.0, "frequencia": 0.0, "semestre": 2, "ano": 2025, "status": "Em Curso" },
+    { "nome": "Matemática para Computação", "media": 0.0, "frequencia": 0.0, "semestre": 2, "ano": 2025, "status": "Em Curso" },
+
+    { "nome": "Banco de Dados Não-Relacional", "media": 0.0, "frequencia": 0.0, "semestre": 3, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Desenvolvimento Web III", "media": 0.0, "frequencia": 0.0, "semestre": 3, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Técnicas de Programação II", "media": 0.0, "frequencia": 0.0, "semestre": 3, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Gestão Ágil de Projetos de Software", "media": 0.0, "frequencia": 0.0, "semestre": 3, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Interação Humano Computador", "media": 0.0, "frequencia": 0.0, "semestre": 3, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Álgebra Linear", "media": 0.0, "frequencia": 0.0, "semestre": 3, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Inglês I", "media": 0.0, "frequencia": 0.0, "semestre": 3, "ano": 2026, "status": "Não Cursada" },
+
+    { "nome": "Integração e Entrega Contínua", "media": 0.0, "frequencia": 0.0, "semestre": 4, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Laboratório de Des. Web", "media": 0.0, "frequencia": 0.0, "semestre": 4, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Programação para Dispositivos Móveis", "media": 0.0, "frequencia": 0.0, "semestre": 4, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Internet das Coisas e Aplicações", "media": 0.0, "frequencia": 0.0, "semestre": 4, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Experiência do Usuário (UX)", "media": 0.0, "frequencia": 0.0, "semestre": 4, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Estatística Aplicada", "media": 0.0, "frequencia": 0.0, "semestre": 4, "ano": 2026, "status": "Não Cursada" },
+    { "nome": "Inglês II", "media": 0.0, "frequencia": 0.0, "semestre": 4, "ano": 2026, "status": "Não Cursada" },
+
+    { "nome": "Segurança no Desenvolvimento de Aplicações", "media": 0.0, "frequencia": 0.0, "semestre": 5, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Lab. de Des. p/ Dispositivos Móveis", "media": 0.0, "frequencia": 0.0, "semestre": 5, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Programação para Dispositivos Móveis II", "media": 0.0, "frequencia": 0.0, "semestre": 5, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Aprendizagem de Máquina (ML)", "media": 0.0, "frequencia": 0.0, "semestre": 5, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Computação em Nuvem I", "media": 0.0, "frequencia": 0.0, "semestre": 5, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Fundamento da Redação Técnica", "media": 0.0, "frequencia": 0.0, "semestre": 5, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Inglês III", "media": 0.0, "frequencia": 0.0, "semestre": 5, "ano": 2027, "status": "Não Cursada" },
+
+    { "nome": "Mineração de Dados", "media": 0.0, "frequencia": 0.0, "semestre": 6, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Lab. de Des. Multiplataforma", "media": 0.0, "frequencia": 0.0, "semestre": 6, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Qualidade e Teste de Software", "media": 0.0, "frequencia": 0.0, "semestre": 6, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Processamento de Linguagem Natural", "media": 0.0, "frequencia": 0.0, "semestre": 6, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Computação em Nuvem II", "media": 0.0, "frequencia": 0.0, "semestre": 6, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Ética Profissional e Patente", "media": 0.0, "frequencia": 0.0, "semestre": 6, "ano": 2027, "status": "Não Cursada" },
+    { "nome": "Inglês IV", "media": 0.0, "frequencia": 0.0, "semestre": 6, "ano": 2027, "status": "Não Cursada" }
+
+]
+
+### Adiciona uma única disciplina
+POST http://localhost:3000/api/disciplinas
+Content-Type: application/json
+
+[
+    {
+    "nome": "Lógica de Programação",
+    "media": 9.5,
+    "frequencia": 93.5,
+    "semestre": 1,
+    "ano": 2025,
+    "status": "Concluída"
+    }
+]
+
+### Atualiza disciplina por nome Engenharia de Software II
+PUT http://localhost:3000/api/disciplinas/Engenharia%20de%20Software%20II
+Content-Type: application/json
+
+{
+  "media": 8.9,
+  "frequencia": 90.0,
+  "status": "Concluída"
+}
+
+### Exclui uma disciplina por nome Banco de Dados - Relacional
+DELETE http://localhost:3000/api/disciplinas/Banco%20de%20Dados%20-%20Relacional
+
+### Exclui todas as disciplinas
+DELETE http://localhost:3000/api/disciplinas
+
+### Consulta todas as disciplinas
+GET http://localhost:3000/api/disciplinas

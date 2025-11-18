@@ -1,0 +1,26 @@
+### Upload para pasta css
+POST http://localhost:3000/files/upload/css
+Content-Type: multipart/form-data
+file: (selecionar arquivo)
+
+### Listar arquivos da pasta docs
+GET http://localhost:3000/files/list/docs
+
+### Deletar arquivo
+DELETE http://localhost:3000/files/delete/docs/exemplo.txt
+
+### Renomear arquivo
+PUT http://localhost:3000/files/rename/css/style.css
+Content-Type: application/json
+
+{
+  "newName": "novoStyle.css"
+}
+
+### Editar conteúdo de um CSS, HTML, JS, TXT etc.
+PUT http://localhost:3000/files/edit/css/style.css
+Content-Type: application/json
+
+{
+  "content": "body { background: red; }"
+}

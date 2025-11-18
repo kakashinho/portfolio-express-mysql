@@ -1,0 +1,31 @@
+### Enviar dados da seção inicial
+POST http://localhost:3000/api/inicio
+Content-Type: application/json
+
+{
+  "nome": "João Vitor",
+  "introducao": "Sou um jovem apaixonado por inovação e tecnologia. Aspiro a área de tecnologia, busco constantemente ampliar meus conhecimentos em STEAM (Ciência, Tecnologia, Engenharia, Artes e Matemática).\n\nHoje sou estudante da FATEC Professor Jessen Vidal - São José dos Campos, no curso de Desenvolvimento de Software Multiplataforma. Estou me especializando em aplicações web com Flask micro framework em Python.\n\nNeste espaço, compartilho um pouco da minha vida — com projetos que refletem meu aprendizado, dedicação e entusiasmo.\n\nFique à vontade para explorar e conhecer meu trabalho!",
+  "fotoPerfil": "foto de perfil curriculo.jpeg",
+  "icones": {
+    "github": "https://github.com/kakashinho",
+    "linkedin": "https://www.linkedin.com/in/joao-vitor-siqueira-a2a2a3227/",
+    "email": "https://teams.microsoft.com/l/chat/0/0?users=joao.siqueira12@fatec.sp.gov.br",
+    "curriculo": "João Vitor - Currículo - 2025.pdf"
+  },
+  "contato": "https://wa.me/5512978132657"
+}
+
+### Consultar dados - GET
+GET http://localhost:3000/api/inicio
+
+### Atualizar dados (parcial ou total) - PUT
+PUT http://localhost:3000/api/inicio
+Content-Type: application/json
+
+{
+  "introducao": "Atualização do texto da introdução, só para teste."
+}
+
+### Deletar dados - DELETE
+DELETE http://localhost:3000/api/inicio
+

@@ -1,0 +1,77 @@
+### POST novo projeto
+POST http://localhost:3000/api/projetos
+Content-Type: application/json
+
+[
+    { 
+      "nome": "Projeto do 2° Semestre",
+      "descricao": "Plataforma de Gestão Integrada.",
+      "imgSrc": "/img/timekingfisher.jpg",
+      "htmlSrc": "/templates/api2sem.html"
+  },
+  { 
+      "nome": "Projeto do 1° Semestre",
+      "descricao": "Análise de municípios sobre Comércio Exterior.",
+      "imgSrc": "/img/timecrows.jpg",
+      "htmlSrc": "/templates/api1sem.html"
+  },
+    {
+      "nome": "Projeto Maquete Indústria 4.0",
+      "descricao": "Trabalho voluntário desenvolvido no time de robótica Brazilian Storm FRC.",
+      "imgSrc": "/img/timebrazilianstorm.jpg",
+      "htmlSrc": "/templates/maquete.html"
+  },
+    {
+      "nome": "Projeto Katara Irrigador Inteligente",
+      "descricao": "Trabalho de conclusão de curso técnico em Automação Industrial",
+      "imgSrc": "/img/timedesnorteados.jpg",
+      "htmlSrc": "/templates/tcc.html"
+  },
+    {
+      "nome": "Competições de Programação",
+      "descricao": "Maratona de Programação InterFatec.",
+      "imgSrc": "/img/timemasanorinhos.jpg",
+      "htmlSrc": "/templates/maratona.html"
+  }
+]
+
+### POST novo projeto
+POST http://localhost:3000/api/projetos
+Content-Type: application/json
+
+[
+  { 
+      "nome": "Projeto do 3° Semestre",
+      "descricao": "Análise de municípios sobre Comércio Exterior.",
+      "imgSrc": "/img/timecrows.jpg",
+      "htmlSrc": "/templates/api1sem.html"
+  },
+    {
+      "nome": "Projeto Maquete Indústria 5.0",
+      "descricao": "Trabalho voluntário desenvolvido no time de robótica Brazilian Storm FRC.",
+      "imgSrc": "/img/timebrazilianstorm.jpg",
+      "htmlSrc": "/templates/maquete.html"
+  }
+]
+
+### GET todos os projetos
+GET http://localhost:3000/api/projetos
+Accept: application/json
+
+### GET todos os projetos
+GET http://localhost:3000/api/projetos
+Accept: application/json
+
+### PUT atualizar projeto
+PUT http://localhost:3000/api/projetos/1
+Content-Type: application/json
+
+{
+  "descricao": "Descrição atualizada do projeto"
+}
+
+### DELETE projeto
+DELETE http://localhost:3000/api/projetos/1
+
+### DELETE todos os projetos
+DELETE http://localhost:3000/api/projetos/

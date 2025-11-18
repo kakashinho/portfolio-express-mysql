@@ -1,0 +1,34 @@
+### GET - Buscar dados do dashboard (GitHub stats e cores)
+GET http://localhost:3000/api/dashboard
+Accept: application/json
+
+### POST - Atualizar username do GitHub
+POST http://localhost:3000/api/dashboard
+Content-Type: application/json
+
+{
+  "githubUsername": "novoUsuario"
+}
+
+### POST - Atualizar username do GitHub
+POST http://localhost:3000/api/dashboard
+Content-Type: application/json
+
+{
+  "githubUsername": "kakashinho"
+}
+
+### PUT - Atualizar cor de uma linguagem
+PUT http://localhost:3000/api/dashboard
+Content-Type: application/json
+
+{
+  "language": "JavaScript",
+  "color": "#123456"
+}
+
+### DELETE - Remover linguagem (exemplo: TypeScript)
+DELETE http://localhost:3000/api/dashboard/TypeScript
+
+### DELETE - Remover várias linguagens
+DELETE http://localhost:3000/api/dashboard/
